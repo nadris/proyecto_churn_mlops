@@ -2,16 +2,16 @@ from fastapi import FastAPI
 import pandas as pd
 import joblib
 
-app = FastAPI(
-    title="Churn Prediction API"
-)
+app = FastAPI(title="Servicio ML-Ops - Churn")
 
 model = joblib.load("models/model.pkl")
 
 @app.get("/")
-def home():
+def inicio():
     return {
-        "status": "running"
+        "mensaje": "Servicio ML-Ops activo",
+        "estado": "ok",
+        "autor": "Never Adrian Sossa"
     }
 
 @app.get("/predict")
@@ -27,4 +27,10 @@ def predict():
 
     return {
         "prediction": int(pred[0])
+    }
+
+@app.get("/health")
+def health():
+    return {
+        "status": "running"
     }
